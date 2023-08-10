@@ -10,11 +10,14 @@ jobs:
   initialize:
     name: List Issues to JSON
     runs-on: ubuntu-latest
+    outputs:
+        issues: ${{ steps.get-issues.outputs.issues }}  
 
     steps:
       - uses: actions/checkout@v3
             
       - name: List Issues
+        id: get-issues
         run: |
           GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json id,title,labels > issues.json
           cat issues.json
