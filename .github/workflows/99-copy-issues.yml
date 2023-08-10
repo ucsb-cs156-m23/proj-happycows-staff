@@ -34,7 +34,7 @@ jobs:
       destination: target/site/apidocs  
       number: ${{ matrix.value.number }}
       title: ${{ matrix.value.title }} 
-      labels: ${{ matrix.value.labels }}
+      labels: ${{ fromJSON(matrix.value.labels) }}
     strategy:
       matrix:
         value: ${{ fromJSON(needs.initialize.outputs.ISSUES)}}
