@@ -33,9 +33,9 @@ jobs:
     env:
       destination: target/site/apidocs  
       number: ${{ matrix.value.number }}
-      title: ${{ toJSON(matrix.value.title) }} 
-      labels: ${{ toJSON(matrix.value.labels) }} 
-      body: ${{ toJSON(matrix.value.body) }} 
+      title: ${{ matrix.value.title }} 
+      labels: ${{ matrix.value.labels }} 
+      body: ${{ matrix.value.body }} 
     strategy:
       matrix:
         value: ${{ fromJSON(needs.initialize.outputs.ISSUES)}}
@@ -44,18 +44,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3.5.2
 
-      - name: Display issue for debugging
-        run: |
-            echo number=${{env.number}}
-            echo title=${{env.title}}
-            echo labels='${{env.labels}}'
-
       - name: Create issue
         uses: dacbd/create-issue-action@main
         with:
             token: ${{ github.token }}
             title: ${{ env.title }}
             body: ${{ env.body }}
+            labels: ${{ env.labels }}
         
 
  
