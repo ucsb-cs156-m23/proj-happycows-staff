@@ -19,7 +19,7 @@ jobs:
       - name: List Issues
         id: get-issues
         run: |
-          GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json number,title,labels,body > issues.json
+          GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json number,title,body,labels | jq '[ ( .[] | { number: .number, title: .title , body: .body, labels: ( .labels | [ .[].name ] | join(",") )  } ) ]' > issues.json          
           cat issues.json
           issues=`cat issues.json`
           echo "issues=${issues}"
@@ -39,26 +39,14 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3.5.2
-    
-      - name: Convert Labels to Comma Separated List
-        id: convert-labels
-        run: |
-          labels=`echo ${{ toJSON(matrix.value.labels) }} | jq -r '.[] | .name' | paste -sd "," -`
-          echo "labels=${labels}"
-          echo "labels=${labels}" >> "$GITHUB_ENV"
-
-      - name: Convert Labels to Comma Separated List
-        id: debug_labels
-        run: |
-            echo ${{ toJSON(matrix.value.labels) }} | jq ".labels | [ .[].name ]"
-           
-    #   - name: Create issue
-    #     uses: dacbd/create-issue-action@main
-    #     with:
-    #         token: ${{ github.token }}
-    #         title: ${{ matrix.value.title }}
-    #         body: ${{ matrix.value.body }}
-    #         labels: ${{ matrix.value.body }}
+         
+      - name: Create issue
+        uses: dacbd/create-issue-action@main
+        with:
+            token: ${{ github.token }}
+            title: ${{ matrix.value.title }}
+            body: ${{ matrix.value.body }}
+            labels: ${{ matrix.value.labels }}
         
 
  
