@@ -42,13 +42,13 @@ jobs:
 
       - name: Display issue (for debugging)
         run: |
-            number=${{ matrix.value.number }}
-            title=${{ matrix.value.title }}
-            labels=${{ matrix.value.labels }}
+            number="${{ matrix.value.number }}"
+            title="${{ matrix.value.title }}"
+            labels=${{ fromJSON(matrix.value.labels) }}
 
-            echo "number=${{ env.number}}"
-            echo "title=${{ env.title}}"
-            echo "labels=${{ env.labels}}"
+            echo "number=${number}"
+            echo "title=${title}"
+            echo "labels=${labels}"
 
            
 
