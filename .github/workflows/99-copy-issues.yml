@@ -31,7 +31,10 @@ jobs:
     needs: [initialize]
 
     env:
-      destination: target/site/apidocs   
+      destination: target/site/apidocs  
+      number: ${{ matrix.value.number }}
+      title: ${{ matrix.value.title }} 
+      labels: ${{ matrix.value.labels }}
     strategy:
       matrix:
         value: ${{ fromJSON(needs.initialize.outputs.ISSUES)}}
@@ -40,14 +43,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3.5.2
 
-      - name: Display issue (for debugging)
+      - name: Display issue for debugging
         run: |
-            number="${{ matrix.value.number }}"
-            title="${{ fromJSON(matrix.value.title) }}"
+            echo number: ${{env.number}}
+            echo title: ${{env.title}}
+            echo labels: ${{env.labels}}
+           
 
-            echo "number=${number}"
-            echo "title=${title}"
-
+ 
            
 
 
