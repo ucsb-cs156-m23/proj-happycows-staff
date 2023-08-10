@@ -46,7 +46,7 @@ jobs:
             token: ${{ github.token }}
             title: ${{ matrix.value.title }}
             body: ${{ matrix.value.body }}
-            # labels: ${{ env.labels }}
+            labels: ${{ matrix.value.body }}
         
 
  
