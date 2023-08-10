@@ -34,6 +34,7 @@ jobs:
       destination: target/site/apidocs  
       number: ${{ matrix.value.number }}
       title: ${{ toJSON(matrix.value.title) }} 
+      labels: ${{ toJSON(matrix.value.labels) }} 
     strategy:
       matrix:
         value: ${{ fromJSON(needs.initialize.outputs.ISSUES)}}
@@ -46,6 +47,8 @@ jobs:
         run: |
             echo number=${{env.number}}
             echo title=${{env.title}}
+            echo labels=${{env.labels}}
+
            
 
  
