@@ -16,12 +16,11 @@ jobs:
             
       - name: List Issues
         run: |
-          GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json id,title,body,labels > issues.json
-          ISSUES=$(cat issues.json)
+          GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json id,title,labels > issues.json
           cat issues.json
-          ISSUES=`cat issues.json`
-          echo "ISSUES=${ISSUES}"
-          echo "ISSUES=${ISSUES}" >> "$GITHUB_OUTPUT"   
+          issues=`cat issues.json`
+          echo "issues=${issues}"
+          echo "issues=${issues}" >> "$GITHUB_OUTPUT"   
 
   addIssuesToRepo:
     name: Add each issue to repo
