@@ -35,6 +35,7 @@ jobs:
       number: ${{ matrix.value.number }}
       title: ${{ toJSON(matrix.value.title) }} 
       labels: ${{ toJSON(matrix.value.labels) }} 
+      body: ${{ toJSON(matrix.value.body) }} 
     strategy:
       matrix:
         value: ${{ fromJSON(needs.initialize.outputs.ISSUES)}}
@@ -47,9 +48,15 @@ jobs:
         run: |
             echo number=${{env.number}}
             echo title=${{env.title}}
-            echo labels=${{env.labels}}
+            echo labels='${{env.labels}}'
 
-           
+      - name: Create issue
+        uses: dacbd/create-issue-action@main
+        with:
+            token: ${{ github.token }}
+            title: ${{ env.title }}
+            body: ${{ env.body }}
+        
 
  
            
