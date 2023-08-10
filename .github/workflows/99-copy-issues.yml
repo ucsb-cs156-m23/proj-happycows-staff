@@ -43,7 +43,7 @@ jobs:
       - name: Display issue (for debugging)
         run: |
             number="${{ matrix.value.number }}"
-            title="${{ matrix.value.title }}"
+            title="${{ fromJSON(matrix.value.title) }}"
 
             echo "number=${number}"
             echo "title=${title}"
