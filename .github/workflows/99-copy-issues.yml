@@ -31,8 +31,13 @@ jobs:
         run: |
           GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json number,title,body,labels | jq '[ ( .[] | { number: .number, title: .title , body: .body, labels: ( .labels | [ .[].name ] | join(",") )  } ) ]' > issues.json          
           cat issues.json
-          #echo "issues=`cat issues.json` >> "$GITHUB_OUTPUT"   
-          echo 'issues=[{"title":"test", "number": 1, "body": "test body", "labels" : "a,b"}]' >> "$GITHUB_OUTPUT"   
+          {
+               echo 'JSON_RESPONSE<<THIS_IS_THIS_EOF_MARKER'
+               cat issues.json
+               echo THIS_IS_THIS_EOF_MARKER
+          } >> "$GITHUB_ENV"
+          # The following line can be uncommented for a simple test of later stages
+          # echo 'issues=[{"title":"test", "number": 1, "body": "test body", "labels" : "a,b"}]' >> "$GITHUB_OUTPUT"   
 
   addIssuesToRepo:
     name: Add issue (${{ matrix.value.number }}) to repo 
