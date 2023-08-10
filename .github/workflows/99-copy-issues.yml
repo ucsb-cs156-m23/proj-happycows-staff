@@ -39,14 +39,26 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3.5.2
+    
+      - name: Convert Labels to Comma Separated List
+        id: convert-labels
+        run: |
+          labels=`echo ${{ toJSON(matrix.value.labels) }} | jq -r '.[] | .name' | paste -sd "," -`
+          echo "labels=${labels}"
+          echo "labels=${labels}" >> "$GITHUB_ENV"
 
-      - name: Create issue
-        uses: dacbd/create-issue-action@main
-        with:
-            token: ${{ github.token }}
-            title: ${{ matrix.value.title }}
-            body: ${{ matrix.value.body }}
-            labels: ${{ matrix.value.body }}
+      - name: Convert Labels to Comma Separated List
+        id: debug_labels
+        run: |
+            echo ${{ toJSON(matrix.value.labels) }} | jq ".labels | [ .[].name ]"
+           
+    #   - name: Create issue
+    #     uses: dacbd/create-issue-action@main
+    #     with:
+    #         token: ${{ github.token }}
+    #         title: ${{ matrix.value.title }}
+    #         body: ${{ matrix.value.body }}
+    #         labels: ${{ matrix.value.body }}
         
 
  
