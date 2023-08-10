@@ -32,10 +32,6 @@ jobs:
 
     env:
       destination: target/site/apidocs  
-      number: ${{ matrix.value.number }}
-      title: ${{ matrix.value.title }} 
-      labels: ${{ matrix.value.labels }} 
-      body: ${{ matrix.value.body }} 
     strategy:
       matrix:
         value: ${{ fromJSON(needs.initialize.outputs.ISSUES)}}
@@ -48,9 +44,9 @@ jobs:
         uses: dacbd/create-issue-action@main
         with:
             token: ${{ github.token }}
-            title: ${{ env.title }}
-            body: ${{ env.body }}
-            labels: ${{ env.labels }}
+            title: ${{ matrix.value.title }}
+            body: ${{ matrix.value.body }}
+            # labels: ${{ env.labels }}
         
 
  
