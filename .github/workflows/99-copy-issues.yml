@@ -42,10 +42,16 @@ jobs:
 
       - name: Display issue (for debugging)
         run: |
-            echo "matrix.value.number=${{ matrix.value.number }}"
-            echo "matrix.value.title=${{ matrix.value.title }}"
-            echo "matrix.value.labels=${{ matrix.value.labels }}"
-            
+            number=${{ matrix.value.number }}
+            title=${{ matrix.value.title }}
+            labels=${{ matrix.value.labels }}
+
+            echo "number=${{ env.number}}"
+            echo "title=${{ env.title}}"
+            echo "labels=${{ env.labels}}"
+
+           
+
 
     
 
