@@ -1,7 +1,9 @@
-name: 99 - Create Issues for team03
+name: 99 - Copy issues from starter repo
+
 
 env:
-  STARTER: https://github.com/ucsb-cs156/proj-happycows
+    GH_TOKEN: ${{ github.token }}
+    STARTER: https://github.com/ucsb-cs156/proj-happycows
 on:
   workflow_dispatch:
 jobs:
