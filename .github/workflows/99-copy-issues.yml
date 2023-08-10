@@ -42,7 +42,7 @@ jobs:
 
       - name: Display issue (for debugging)
         run: |
-            echo "ISSUE=${{ matrix.value }}"
+            echo "ISSUE=${{ toJSON(matrix.value) }}"
 
     
 
