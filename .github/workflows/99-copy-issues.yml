@@ -35,7 +35,7 @@ jobs:
                echo 'JSON_RESPONSE<<THIS_IS_THIS_EOF_MARKER'
                cat issues.json
                echo THIS_IS_THIS_EOF_MARKER
-          } >> "$GITHUB_ENV"
+          } >> "$GITHUB_OUTPUT"
           # The following line can be uncommented for a simple test of later stages
           # echo 'issues=[{"title":"test", "number": 1, "body": "test body", "labels" : "a,b"}]' >> "$GITHUB_OUTPUT"   
 
