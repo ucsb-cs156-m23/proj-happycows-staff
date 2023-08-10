@@ -26,8 +26,6 @@ jobs:
   addIssuesToRepo:
     name: Add each issue to repo
     runs-on: ubuntu-latest
-    if: ${{ needs.initialize.outputs.ISSUES != '[]' && needs.initialize.outputs.ISSUES != '' }}
-
     needs: [initialize]
 
     env:
