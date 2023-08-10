@@ -7,19 +7,43 @@ env:
 on:
   workflow_dispatch:
 jobs:
-  listIssuesToJson:
+  initialize:
+    name: List Issues to JSON
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
             
-    #   - name: Setup Python
-    #     uses: actions/setup-python@v2
-    #     with:
-    #       python-version: '3.8'
-
       - name: List Issues
         run: |
           GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json id,title,body,labels > issues.json
-          cat issues.json   
-          
+          ISSUES=$(cat issues.json)
+          cat issues.json
+          ISSUES=`cat prs.json`
+          echo "ISSUES=${ISSUES}"
+          echo "ISSUES=${ISSUES}" >> "$GITHUB_OUTPUT"   
+
+  addIssuesToRepo:
+    name: Add each issue to repo
+    runs-on: ubuntu-latest
+    if: ${{ needs.initialize.outputs.issues != '[]' && needs.initialize.outputs.issues != '' }}
+
+    needs: [initialize]
+
+    env:
+      destination: target/site/apidocs   
+    strategy:
+      matrix:
+        value: ${{ fromJSON(needs.initialize.outputs.issues)}}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3.5.2
+
+      - name: Display issue (for debugging)
+        run: |
+            echo "ISSUE=${{ matrix.value }}"
+
+    
+
+        
