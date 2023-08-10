@@ -6,6 +6,16 @@ env:
     STARTER: https://github.com/ucsb-cs156/proj-happycows
 on:
   workflow_dispatch:
+
+
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/99-copy-issues.yml'
+      
+
+
 jobs:
   initialize:
     name: List Issues to JSON
@@ -20,6 +30,7 @@ jobs:
         id: get-issues
         run: |
           GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json number,title,body,labels | jq '[ ( .[] | { number: .number, title: .title , body: .body, labels: ( .labels | [ .[].name ] | join(",") )  } ) ]' > issues.json          
+          cat issues.json
           #echo "issues=`cat issues.json` >> "$GITHUB_OUTPUT"   
           echo 'issues=[{"title":"test", "number": 1, "body": "test body", "labels" : "a,b"}]' >> "$GITHUB_OUTPUT"   
 
