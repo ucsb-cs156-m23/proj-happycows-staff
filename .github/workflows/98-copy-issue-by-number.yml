@@ -42,11 +42,11 @@ jobs:
   notifyOfFailure:
     needs: [initialize]
     runs-on: ubuntu-latest
-    if: ${{ needs.initialize.outputs.issues == '[]' && needs.initialize.outputs.issues == '' }}
+    if: ${{ needs.initialize.outputs.issues == '[]' || needs.initialize.outputs.issues == '' }}
     steps:
       - name: Notify of failure
         run: |
-            echo "ERROR: Issue ${{ github.event.inputs.issue_number }} could not be retrieved from  ${{ env.STARTER }}" >> $GITHUB_STEP_SUMMARY
+          echo "ERROR: Issue ${{ github.event.inputs.issue_number }} could not be retrieved from  ${{ env.STARTER }}" >> "$GITHUB_STEP_SUMMARY"
            
 
   addIssuesToRepo:
@@ -58,7 +58,7 @@ jobs:
       destination: target/site/apidocs  
     strategy:
       matrix:
-        value: ${{ fromJSON(needs.initialize.outputs.ISSUES)}}
+        value: ${{ fromJSON(needs.initialize.outputs.issues)}}
 
     steps:
       - name: Checkout repo
