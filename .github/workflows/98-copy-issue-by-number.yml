@@ -37,7 +37,18 @@ jobs:
                cat issues.json
                echo THIS_IS_THIS_EOF_MARKER
           } >> "$GITHUB_OUTPUT"
-          
+
+   
+  notifyOfFailure:
+    needs: [initialize]
+    runs-on: ubuntu-latest
+    if: ${{ needs.initialize.outputs.issues == '[]' && needs.initialize.outputs.issues == '' }}
+    steps:
+      - name: Notify of failure
+        run: |
+            echo "ERROR: Issue ${{ github.event.inputs.issue_number }} could not be retrieved from  ${{ env.STARTER }}" >> $GITHUB_STEP_SUMMARY
+           
+
   addIssuesToRepo:
     name: Add issue (${{ matrix.value.number }}) to repo 
     runs-on: ubuntu-latest
