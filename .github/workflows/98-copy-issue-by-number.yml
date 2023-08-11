@@ -60,9 +60,16 @@ jobs:
             title: ${{ matrix.value.title }}
             body: ${{ matrix.value.body }}
             labels: ${{ matrix.value.labels }}
-    
+
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ steps.new-issue.outputs.number }}
+          body: |
+            Copied from ${{ env.STARTER }}/issues/${{ github.event.inputs.issue_number }}
+           
       - run: |
-          echo "Copied issue ${{ github.event.inputs.issue_number }} from  ${{ env.STARTER }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Copied issue ${{ github.event.inputs.issue_number }} from ${{ env.STARTER }}/issues/${{ github.event.inputs.issue_number }}" >> "$GITHUB_STEP_SUMMARY"
           echo " to issue ${{ steps.new-issue.outputs.number }} at url ${{ steps.new-issue.outputs.html_url }}" >> "$GITHUB_STEP_SUMMARY"
           
   ifIssueNotFoundNotify:
