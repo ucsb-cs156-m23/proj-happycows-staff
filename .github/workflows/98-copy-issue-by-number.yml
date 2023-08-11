@@ -14,7 +14,7 @@ on:
     inputs:
       issue:
         type: number
-        description: issue number from ${{STARTER}}
+        description: issue number from https://github.com/ucsb-cs156/proj-happycows
       
 jobs:
   initialize:
