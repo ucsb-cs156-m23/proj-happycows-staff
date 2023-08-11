@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-m23/proj-happycows-staff
 owner: ucsb-cs156-m23
 repo_name: proj-happycows-staff
-pull_requests: []
+pull_requests: [{"author":{"id":"U_kgDOB6sVGg","is_bot":false,"login":"david-solomon-henshaw","name":""},"headRefName":"main","number":47,"title":"Update PlayPage.js","url":"https://github.com/ucsb-cs156-m23/proj-happycows-staff/pull/47"}]
