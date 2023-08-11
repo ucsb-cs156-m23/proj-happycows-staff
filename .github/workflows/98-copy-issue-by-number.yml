@@ -63,9 +63,11 @@ jobs:
     
       - run: |
           new_issue_number=${{ steps.new-issue.outputs.number }}
-          echo "**** JSON Start ****"
-          echo "${{ toJSON(steps.new-issue.outputs.json) }}" 
-          echo "**** JSON End ****"
+
+          echo "${{ steps.new-issue.outputs.json }}" | jq
+          echo "${{ steps.new-issue.outputs.json }}" | jq .state
+          echo "${{ steps.new-issue.outputs.json }}" | jq .labels[].name
+          
           url=`echo "${{ toJSON(steps.new-issue.outputs.json) }}" | jq '.url '` 
           echo "Copied issue ${{ github.event.inputs.issue_number }} from  ${{ env.STARTER }}" >> "$GITHUB_STEP_SUMMARY"
           echo " to issue ${new_issue_number} at url ${url}" >> "$GITHUB_STEP_SUMMARY"
