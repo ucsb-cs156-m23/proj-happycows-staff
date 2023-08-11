@@ -12,7 +12,7 @@ env:
 on:
   workflow_dispatch:
     inputs:
-      issue:
+      issue_number:
         type: number
         description: issue number from https://github.com/ucsb-cs156/proj-happycows
       
@@ -29,7 +29,7 @@ jobs:
       - name: List Issues
         id: get-issues
         run: |
-          number=${{ github.event.inputs.number }}
+          number=${{ github.event.inputs.issue_number }}
           GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json number,title,body,labels | jq '[ ( .[] | select(.number==$ENV.number) | { number: .number, title: .title , body: .body, labels: ( .labels | [ .[].name ] | join(",") )  } ) ]' > issues.json
           cat issues.json
           {
