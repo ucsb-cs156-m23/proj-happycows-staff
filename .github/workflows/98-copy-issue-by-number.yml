@@ -30,7 +30,7 @@ jobs:
         id: get-issues
         run: |
           number=${{ github.event.inputs.org }}
-          jq_expression="'[ ( .[] | select(.number==${number}) | { number: .number, title: .title , body: .body, labels: ( .labels | [ .[].name ] | join(',') )  } ) ]'"
+          jq_expression="[ ( .[] | select(.number==${number}) | { number: .number, title: .title , body: .body, labels: ( .labels | [ .[].name ] | join(',') )  } ) ]"
           echo "jq_expression=$jq_expression"
           GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json number,title,body,labels | jq $jq_expression > issues.json
           cat issues.json
