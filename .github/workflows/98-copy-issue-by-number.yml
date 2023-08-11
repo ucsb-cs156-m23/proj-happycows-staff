@@ -30,7 +30,7 @@ jobs:
         id: get-issues
         run: |
           number=${{ github.event.inputs.issue_number }}
-          GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json number,title,body,labels | jq '[ ( .[] | select(.number==$ENV.number) | { number: .number, title: .title , body: .body, labels: ( .labels | [ .[].name ] | join(",") )  } ) ]' > issues.json
+          GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json number,title,body,labels | jq --argjson issue_num $number  '[ ( .[] | select(.number==$issue_num) | { number: .number, title: .title , body: .body, labels: ( .labels | [ .[].name ] | join(",") )  } ) ]' > issues.json
           cat issues.json
           {
                echo 'issues<<THIS_IS_THIS_EOF_MARKER'
