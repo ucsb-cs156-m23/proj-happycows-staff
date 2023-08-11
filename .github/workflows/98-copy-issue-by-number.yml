@@ -1,5 +1,11 @@
 name: 98 - Copy specific issue from starter repo (creates new issue)
 
+# This workflow is intended for the situation where the issues have 
+# already been copied from the starter repo, but later a new issue
+# is added.  It can be used to copy over specific issues one at a time.
+#
+# For bulk copy of all issues, see workflow 99
+
 env:
     GH_TOKEN: ${{ github.token }}
     STARTER: https://github.com/ucsb-cs156/proj-happycows
