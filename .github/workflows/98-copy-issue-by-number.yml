@@ -62,12 +62,11 @@ jobs:
             labels: ${{ matrix.value.labels }}
     
       - run: |
-          new_issue_number=${{ steps.new-issue.outputs.number }}"
+          new_issue_number=${{ steps.new-issue.outputs.number }}
           url=`echo "${{ steps.new-issue.outputs.json }}" | jq .url`
           echo "Copied issue ${{ github.event.inputs.issue_number }} from  ${{ env.STARTER }}" >> "$GITHUB_STEP_SUMMARY"
-          echo " to issue ${new_issue_number} in repo ${{github.repo}} at url ${url}" >> "$GITHUB_STEP_SUMMARY"
+          echo " to issue ${new_issue_number} at url ${url}" >> "$GITHUB_STEP_SUMMARY"
           
-        
   ifIssueNotFoundNotify:
     needs: [initialize]
     runs-on: ubuntu-latest
