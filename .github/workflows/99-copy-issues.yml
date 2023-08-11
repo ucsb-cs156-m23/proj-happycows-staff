@@ -46,7 +46,7 @@ jobs:
       destination: target/site/apidocs  
     strategy:
       matrix:
-        value: ${{ fromJSON(needs.initialize.outputs.ISSUES)}}
+        value: ${{ fromJSON(needs.initialize.outputs.issues)}}
 
     steps:
       - name: Checkout repo
